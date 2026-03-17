@@ -1,5 +1,18 @@
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+let humanScore = 0;
+let computerScore = 0;
+let winner = "";
+const choice = document.querySelector("input");
+const button = document.querySelector("button");
+const result = document.querySelector(".result");
+const score = document.querySelector(".score");
+choice.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    playRound(getHumanChoice(), getComputerChoice());
+  }
+});
+button.addEventListener("click", () =>
+  playRound(getHumanChoice(), getComputerChoice()),
+);
 
 function getComputerChoice() {
   let computerChoice;
@@ -15,68 +28,31 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-  let humanChoice = prompt("rock, paper, or scissors?", "");
+  let humanChoice = choice.value;
+  humanChoice = humanChoice.toLowerCase();
   return humanChoice;
 }
 
-function playGame() {
-  let humanScore = 0;
-  let computerScore = 0;
-  function playRound(humanChoice, computerChoice) {
-    humanChoice = humanChoice.toLowerCase();
-    computerChoice = computerChoice.toLowerCase();
-    console.log(`human: ${humanChoice}`);
-    console.log(`computer: ${computerChoice}`);
-    if (humanChoice == "rock" && computerChoice == "paper") {
-      computerScore == ++computerScore;
-      console.log(
-        `computer wins. humans: ${humanScore}, computer: ${computerScore}`,
-      );
-    } else if (humanChoice == "rock" && computerChoice == "scissors") {
-      humanScore == ++humanScore;
-      console.log(
-        `human wins. humans: ${humanScore}, computer: ${computerScore}`,
-      );
-    } else if (humanChoice == "paper" && computerChoice == "paper") {
-      console.log(`draw. humans: ${humanScore}, computer: ${computerScore}`);
-    }
-    if (humanChoice == "paper" && computerChoice == "scissors") {
-      computerScore == ++computerScore;
-      console.log(
-        `computer wins. humans: ${humanScore}, computer: ${computerScore}`,
-      );
-    } else if (humanChoice == "paper" && computerChoice == "rock") {
-      humanScore == ++humanScore;
-      console.log(
-        `human wins. humans: ${humanScore}, computer: ${computerScore}`,
-      );
-    } else if (humanChoice == "scissors" && computerChoice == "scissors") {
-      console.log(`draw. humans: ${humanScore}, computer: ${computerScore}`);
-    }
-    if (humanChoice == "scissors" && computerChoice == "rock") {
-      computerScore == ++computerScore;
-      console.log(
-        `computer wins. humans: ${humanScore}, computer: ${computerScore}`,
-      );
-    } else if (humanChoice == "scissors" && computerChoice == "paper") {
-      humanScore == ++humanScore;
-      console.log(
-        `human wins. humans: ${humanScore}, computer: ${computerScore}`,
-      );
-    } else if (humanChoice == "rock" && computerChoice == "rock") {
-      console.log(`draw. humans: ${humanScore}, computer: ${computerScore}`);
-    }
+function playRound(humanChoice, computerChoice) {
+  if (humanChoice === computerChoice) {
+    winner = "no one";
+  } else if (
+    (humanChoice === "rock" && computerChoice === "scissors") ||
+    (humanChoice === "paper" && computerChoice === "rock") ||
+    (humanChoice === "scissors" && computerChoice === "paper")
+  ) {
+    winner = "human";
+    ++humanScore;
+  } else {
+    winner = "computer";
+    ++computerScore;
   }
-  playRound(getHumanChoice(), getComputerChoice());
-  playRound(getHumanChoice(), getComputerChoice());
-  playRound(getHumanChoice(), getComputerChoice());
-  playRound(getHumanChoice(), getComputerChoice());
-  playRound(getHumanChoice(), getComputerChoice());
-  winner();
-  function winner() {
-    if (humanScore > computerScore) {
-      console.log("Human wins!");
-    } else console.log("Computer wins!");
-  }
+  choice.value = "";
+  score.textContent = `human: ${humanScore}    computer: ${computerScore}`;
+  if (humanScore === 5) {
+    result.textContent = "HUMAN WINS!";
+  } else if (computerScore === 5) {
+    result.textContent = "COMPUTER WINS!";
+  } else
+    result.textContent = `human picks ${humanChoice}, computer picks ${computerChoice}. ${winner} wins.`;
 }
-playGame();
