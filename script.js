@@ -1,17 +1,20 @@
 let humanScore = 0;
 let computerScore = 0;
 let winner = "";
-const choice = document.querySelector("input");
-const button = document.querySelector("button");
+const rock = document.querySelector(".rock");
+const paper = document.querySelector(".paper");
+const scissors = document.querySelector(".scissors");
 const result = document.querySelector(".result");
 const score = document.querySelector(".score");
-choice.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    playRound(getHumanChoice(), getComputerChoice());
-  }
-});
-button.addEventListener("click", () =>
-  playRound(getHumanChoice(), getComputerChoice()),
+
+rock.addEventListener("click", () =>
+  playRound(getHumanChoice("rock"), getComputerChoice()),
+);
+paper.addEventListener("click", () =>
+  playRound(getHumanChoice("paper"), getComputerChoice()),
+);
+scissors.addEventListener("click", () =>
+  playRound(getHumanChoice("scissors"), getComputerChoice()),
 );
 
 function getComputerChoice() {
@@ -27,10 +30,8 @@ function getComputerChoice() {
   return computerChoice;
 }
 
-function getHumanChoice() {
-  let humanChoice = choice.value;
-  humanChoice = humanChoice.toLowerCase();
-  return humanChoice;
+function getHumanChoice(clicked) {
+  return clicked;
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -47,7 +48,6 @@ function playRound(humanChoice, computerChoice) {
     winner = "computer";
     ++computerScore;
   }
-  choice.value = "";
   score.textContent = `human: ${humanScore}    computer: ${computerScore}`;
   if (humanScore === 5) {
     result.textContent = "HUMAN WINS!";
