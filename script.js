@@ -49,10 +49,14 @@ function playRound(humanChoice, computerChoice) {
     ++computerScore;
   }
   score.textContent = `human: ${humanScore}    computer: ${computerScore}`;
-  if (humanScore === 5) {
+  if (humanScore >= 5) {
     result.textContent = "HUMAN WINS!";
-  } else if (computerScore === 5) {
+    humanScore = 0;
+    computerScore = 0;
+  } else if (computerScore >= 5) {
     result.textContent = "COMPUTER WINS!";
+    humanScore = 0;
+    computerScore = 0;
   } else
     result.textContent = `human picks ${humanChoice}, computer picks ${computerChoice}. ${winner} wins.`;
 }

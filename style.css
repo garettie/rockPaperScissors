@@ -1,0 +1,44 @@
+body {
+  background-color: #091413;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.prompt {
+  color: #b0e4cc;
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.choice {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
+}
+
+button {
+  font-size: 64px;
+  padding: 40px;
+  margin: 40px;
+  background-color: #285a48;
+  border: 4px solid #408a71;
+  border-bottom: 14px solid #408a71;
+  border-radius: 48px;
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.details {
+  font-size: 24px;
+  color: #b0e4cc;
+}
